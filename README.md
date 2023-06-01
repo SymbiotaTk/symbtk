@@ -10,16 +10,26 @@ https://symbiota.org/
 
 ## Install Symbtk toolkit
 
+### Change directory to Symbiota code
+
 ```
-## Change directory to Symbiota code
 cd portal
+```
 
-## Create a directory for the toolkit
+### Create a directory for the toolkit
+
+```
 mkdir tk && cd tk
+```
 
-## Download composer.json
+### Download composer.json
+
+```
 wget -O composer.json "https://gist.githubusercontent.com/SymbiotaTk/b49dfd05fda95463bfa5133ab9cffb28/raw/"
+```
 
+### Run composer update
+
+```
 composer up
-
 ```
