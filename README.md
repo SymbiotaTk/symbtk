@@ -7,6 +7,10 @@ Symbiota is an open-source software for managing and mobilizing biodiversity dat
 
 https://symbiota.org/
 
+## Symbtk
+
+Symbtk, is a plugin framework for the rapid development of browser-based tools for enhancing existing Symbiota portal functions and creating new embedded features.
+
 
 ## Install Symbtk toolkit
 
