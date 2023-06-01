@@ -1,0 +1,34 @@
+{
+    "name": "symbiotatk/symbtk",
+    "description": "A toolkit for Symbiota portals.",
+    "type": "library",
+    "keywords": ["Symbiotatk", "Symbiota", "toolkit"],
+    "homepage": "https://github.com/symbiotatk/symbtk",
+    "authors": [
+        {
+          "name": "Philip Anders",
+          "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "phug/phug": "^1.10",
+        "mrclay/minify": "^3.0",
+        "mustangostang/spyc": "^0.6.3",
+        "webonyx/graphql-php": "^14.11"
+    },
+    "require-dev": {
+        "kahlan/kahlan": "^5.2"
+    },
+    "license": "NCSA",
+    "autoload": {
+        "files": ["src/Symbtk/Main.php"]
+    },
+    "authors": [
+        {
+            "name": "Philip J Anders",
+            "email": "anders2@illinois.edu"
+        }
+    ],
+    "minimum-stability": "stable"
+}
