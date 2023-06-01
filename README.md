@@ -1,2 +1,2 @@
-# symbtk: A toolkit for Symbiota portals.
+# Symbtk: A toolkit for Symbiota portals.
 ---
