@@ -1,0 +1,42 @@
+div.plugin-icons {
+    width: max-content;
+    margin: auto;
+    position: relative;
+    text-align: center;
+}
+
+.plugin-icons table {
+    width: 100%;
+}
+
+.plugin-icons table td {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.plugin-icons a {
+    text-decoration: none;
+    color: black;
+}
+
+.plugin-icons span {
+    margin-left: 20px;
+    font-weight: normal;
+    font-size: 26px;
+}
+
+.plugin-icons p {
+    font-size: 26px;
+    float: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.fdex-report {
+    width: max-content;
+    height: auto;
+    margin: auto;
+    position: relative;
+    text-align: center;
+    padding: 20px 20px 30px 20px;
+}

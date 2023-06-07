@@ -1,0 +1,27 @@
+{
+    "source": {
+        "include": [
+          "src/App.js"
+        ],
+        "exclude": ["myProject/lib/ignore.js"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": ["plugins/markdown"],
+    "opts": {
+        "encoding": "utf8",
+        "readme": "./README.md",
+        "destination": "docs/",
+        "recurse": true,
+        "verbose": true,
+        "template": "../../../dev/docs/jsdocs/node_modules/clean-jsdoc-theme",
+        "theme_opts": {
+            "default_theme": "dark"
+        }
+    },
+    "markdown": {
+        "hardwrap": false,
+        "idInHeadings": true
+        // This is important for clean-jsdoc-theme, otherwise some features might not work.
+    }
+}

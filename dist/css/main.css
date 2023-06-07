@@ -1,0 +1,147 @@
+html {
+    position: relative;
+    min-height: 100vh;
+}
+
+body {
+    margin: 0 0 0 0;
+    padding: 0px;
+}
+
+#symbtk {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.resource {
+    height: 28px;
+    padding-left: 46px;
+    border-bottom: double #267326;
+    background-color: #ecf9ec;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.resource h5 {
+    text-transform: lowercase;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.resource h5 div.error {
+    color: red;
+}
+
+.resource h5 div.login {
+    float: right;
+    font-weight: normal;
+    padding-right: 46px;
+}
+
+.topnav {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.topnav .right {
+    margin-right: 25px;
+}
+
+div#post-content {
+    height: auto;
+}
+
+.main-content {
+    /* min-height: calc(100vh - 100px); */
+    flex-grow: 1;
+    overflow: auto;
+    min-height: 2em;
+    padding: 16px 12px 12px 12px;
+}
+
+.main-content .error:before {
+    content: 'ERROR: ';
+    color: red;
+    font-weight: bold;
+}
+
+.main-content .error {
+    color: black;
+    font-size: xx-large;
+    border: 1px dotted black;
+    padding: 20px;
+}
+
+.footer {
+    border-top: solid 1px;
+    background: rgba(150, 150, 150, 0.5);
+    width: 100%;
+    height: 40px;
+    padding-top: 10px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.footer a {
+    text-decoration: none;
+    color: black;
+}
+
+
+
+/* API docs */
+._case-sensitive {
+    text-transform: none;
+}
+
+._api-get::before {
+    content: "GET";
+}
+
+._api-post::before {
+    content: "POST";
+}
+
+._api-put::before {
+    content: "PUT";
+}
+
+._api-delete::before {
+    content: "DELETE";
+}
+
+._api-get, ._api-post, ._api-put, ._api-delete {
+    margin: 0px 20px 0px 20px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 4px;
+}
+
+._var {
+    margin: 0px 20px 0px 20px;
+}
+
+._var::before {
+    content: "%{";
+}
+
+._var::after {
+    content: "}";
+}
+
+._var-json::before {
+    content: "JSON URI: %{";
+}
+
+._var-msg::before, _var-message::before {
+    content: "message: %{";
+}
+
+._var-content::before {
+    content: "content: %{";
+}
+
+.main-content button:focus {
+    border: 2px solid #267326;
+    background-color: #ecf9ec;
+}

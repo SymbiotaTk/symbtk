@@ -1,0 +1,275 @@
+vars: &required
+  callback: MAIN_required_run
+  required:
+    css:
+      https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
+      https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic
+      %{app_url}/dist/css/beauter.min.css
+      %{app_url}/dist/css/main.css?version=%{uuid}
+      %{app_url}/dist/css/navigation.css?version=%{uuid}
+    js:
+      %{app_url}/dist/js/beauter.min.js
+      %{app_url}/dist/js/build.min.js?version=%{uuid}
+
+vars|1: &head
+  <ul>:
+    class: topnav
+    id: myTopnav
+    <li|1>:
+      <a>:
+        href: %{app_url}/?/
+        class: brand
+        text: Symbtk
+    <li|2>:
+      class: dropdown
+      <a>:
+        href: #
+        text: Menu
+      <div>:
+        class: dropdown-content
+        <a|0>:
+          href: %{app_url}/?/genbank
+          text: Genbank meta-data
+        <a|1>:
+          href: %{app_url}/?/fdex
+          text: Taxonomy report
+        <a|2>:
+          href: %{app_url}/?/backup
+          text: Backup schedule
+        <a|3>:
+          href: %{app_url}/?/upload
+          text: Batch upload
+    <li|3>:
+      class: right
+      style: float:right;
+      <a>:
+        href: /portal
+        text: Return to MyCoPortal
+    <li|4>:
+      class: -icon
+      <a>:
+        href: javascript:void(0);
+        onclick: topnav('myTopnav')
+        text: &#9776;
+
+vars|2: &foot
+  <div|99>:
+    class: footer
+    <a>:
+      href: https://github.com/SymbiotaTk
+      target: _blank
+      text: SymbiotaTk
+
+/:
+  <<: *required
+  local:
+    callback: default
+    required:
+      js:
+        %{app_url}/dist/js/loader.js?version=%{uuid}
+  <<: *head
+  <div|2>:
+    <h1>: ''
+    <div>:
+      class: plugin-icons main-content
+      <table>:
+        <tbody>:
+          <tr>:
+            <td>:
+              <a>:
+                href: %{app_url}/?/genbank
+                <p>:
+                  <i>:
+                    class: fa fa-university
+                    aria-hidden: true
+                <span>:
+                  text: Genbank meta-data
+          <tr|1>:
+            <td>:
+              <a>:
+                href: %{app_url}/?/fdex
+                <p>:
+                  <i>:
+                    class: fa fa-sitemap
+                    aria-hidden: true
+                <span>:
+                  text: Taxonomy report
+          <tr|2>:
+            <td>:
+              <a>:
+                href: %{app_url}/?/backup
+                <p>:
+                  <i>:
+                    class: fa fa-hdd-o
+                    aria-hidden: true
+                <span>:
+                  text: Schedule a backup
+          <tr|3>:
+            <td>:
+              <a>:
+                href: %{app_url}/?/upload
+                <p>:
+                  <i>:
+                    class: fa fa-upload
+                    aria-hidden: true
+                <span>:
+                  text: Batch upload images
+  <div|3>:
+    id: content
+    data-layout-src: yaml
+    class: main-content
+    <h4>: Welcome to Symbtk
+  <<: *foot
+
+/api:
+  local:
+    callback:
+      data
+
+/genbank:
+  <<: *required
+  local:
+    callback:
+      Content
+    required:
+      js:
+        %{resource_url}/js/main.js?version=%{uuid}
+        %{app_url}/dist/js/loader.js?version=%{uuid}
+  <<: *head
+  <div|2>:
+    class: resource
+    <h5>: %{resource}
+  <div|3>:
+    id: content
+    data-layout-src: yaml
+    class: main-content
+  <<: *foot
+
+/fdex:
+  <<: *required
+  local:
+    callback:
+      Content
+    required:
+      js:
+        %{resource_url}/js/main.js?version=%{uuid}
+        %{app_url}/dist/js/loader.js?version=%{uuid}
+  <<: *head
+  <div|2>:
+    class: resource
+    <h5>: Taxonomy report
+  <div|3>:
+    id: content
+    data-layout-src: yaml
+    class: main-content
+  <<: *foot
+
+/backup:
+  <<: *required
+  local:
+    callback:
+      Content
+    required:
+      js:
+        %{resource_url}/js/main.js?version=%{uuid}
+        %{app_url}/dist/js/loader.js?version=%{uuid}
+  <<: *head
+  <div|2>:
+    class: resource
+    <h5>: %{resource}
+  <div|3>:
+    id: content
+    data-layout-src: yaml
+    class: main-content
+  <<: *foot
+
+/upload:
+  <<: *required
+  local:
+    callback:
+      Content
+    required:
+      js:
+        %{resource_url}/js/main.js?version=%{uuid}
+        %{app_url}/dist/js/loader.js?version=%{uuid}
+  <<: *head
+  <div|2>:
+    class: resource
+    <h5>: %{resource}
+  <div|3>:
+    id: content
+    data-layout-src: yaml
+    class: main-content
+  <<: *foot
+
+/__env:
+  <<: *required
+  local:
+    callback:
+      Content
+    required:
+      js:
+        %{resource_url}/js/main.js?version=%{uuid}
+        %{app_url}/dist/js/loader.js?version=%{uuid}
+  <<: *head
+  <div|2>:
+    class: resource
+    <h5>: %{resource}
+  <div|3>:
+    id: content
+    data-layout-src: yaml
+    class: main-content
+  <<: *foot
+
+/_dev:
+  <<: *required
+  local:
+    callback:
+      DEV_test_dev
+      DEV_test_ads
+    required:
+      js:
+        %{resource_url}/js/main.js?version=%{uuid}
+        %{app_url}/dist/js/loader.js?version=%{uuid}
+  <<: *head
+  <div|2>:
+    id: content
+    data-layout-src: yaml
+    class: main-content
+    <h4>: Dev components
+  <<: *foot
+
+/_dev/ele:
+  <<: *required
+  local:
+    callback:
+      ELE_test_dev
+      ELE_test_ads
+    required:
+      js:
+        %{resource_url}/js/main.js?version=%{uuid}
+        %{app_url}/dist/js/loader.js?version=%{uuid}
+  <<: *head
+  <div|2>:
+    id: content
+    data-layout-src: yaml
+    class: main-content
+    <h4>: Dev sub component
+  <<: *foot
+
+/_dev/ele1/ele2:
+  <<: *required
+  local:
+    callback:
+      ELE1_ELE2_detailed_ele1_ele2
+    required:
+      js:
+        %{resource_url}/js/main.js?version=%{uuid}
+        %{app_url}/dist/js/loader.js?version=%{uuid}
+  <<: *head
+  <div|2>:
+    id: content
+    data-layout-src: yaml
+    class: main-content
+    <h4>: Ele1/Ele2
+  <<: *foot
