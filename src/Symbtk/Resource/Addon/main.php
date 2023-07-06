@@ -2,9 +2,18 @@
 namespace Symbiotatk\Symbtk\Resource\Addon;
 
 use Symbiotatk\Symbtk\Env AS Env;
+use Symbiotatk\Symbtk\Env\Model\Http AS Http;
 use Symbiotatk\Symbtk\File AS File;
 use Symbiotatk\Symbtk\Model AS Model;
 use Symbiotatk\Symbtk\Resource AS Resource;
+
+/** Return addon id.
+ *  @return String $id use addon namespace
+ */
+function Id () {
+    $arr = explode('\\', __NAMESPACE__);
+    return array_pop($arr);
+}
 
 /** Return addon path.
  *  @return String $path Env\Path('root')
@@ -27,10 +36,10 @@ function Url () {
     return File\mkpath(Env\Param('offset').$dir, $res);
 }
 
-/** Return addon id.
- *  @return String $id use addon namespace
- */
-function Id () {
-    $arr = explode('\\', __NAMESPACE__);
-    return array_pop($arr);
+function ResponseOptions (Array $ele, Array $env) {
+    return (object) array_merge(
+        Http\Request(),
+        $ele,
+        $env
+    );
 }

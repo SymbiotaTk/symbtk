@@ -13,7 +13,7 @@ const SITE_CONFIG_FILE = '.site.php';
  */
 function Def () {
     $obj = new \stdClass();
-    $obj->Root = Main\cwd();
+    $obj->Root = Main\app_path();
     $obj->SiteName = false;
     $obj->AdminEmail = false;
     $obj->DbHandler = "sqlite";
@@ -37,24 +37,24 @@ function Load (Object $paths=NULL, Array $related=NULL) {
     $related = ($related)
         ? $related
         : [];
-    $obj = Def();
+    $def = Def();
     $custom_obj = false;
     ob_start();
     if (is_file($paths->rcsite)) {
         try {
-            $custom_obj = File\Model\YAML\decode(Model\Template\Interp(File\read($paths->rcsite), [ 'app_root' => Main\cwd() ] ));
+            $custom_obj = File\Model\YAML\decode(Model\Template\Interp(File\read($paths->rcsite), [ 'app_root' => $def->Root ] ));
         } catch (\Exception $e) {
-            $obj->error = $e->getMessage();
+            $def->error = $e->getMessage();
         }
     }
     ob_end_clean();
 
     return ($custom_obj)
         ? (object) array_merge(
-            (array) $obj,
+            (array) $def,
             $related,
             (array) $custom_obj)
-        : $obj;
+        : $def;
 }
 
 /** Resource configuration site file path
@@ -62,9 +62,10 @@ function Load (Object $paths=NULL, Array $related=NULL) {
  */
 function Path (String $path=NULL) {
     $path = ($path) ? $path : SITE_CONFIG_FILE;
+    $def = Def();
     $dir = (Main\rc_directory_alt())
         ? Main\rc_directory_alt()
-        : Main\cwd();
+        : $def->Root;
 
     return File\mkpath($dir, $path);
 }

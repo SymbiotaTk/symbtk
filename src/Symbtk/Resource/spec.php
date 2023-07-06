@@ -15,7 +15,7 @@ const RC_DIR = '.rc';
  */
 function Enabled(String $name) {
     $root = Env\Path('root');
-    $rc = $root.'/spec/.testrc';
+    $rc = $root.'/.testrc';
     if (is_dir(dirname($rc))
         && is_file($rc)
     ) {
@@ -33,7 +33,7 @@ function Enabled(String $name) {
  *  @return false;
  */
 function SET_ALTERNATE_RC_DIR() {
-    $dir = tempnam(Main\cwd(), RC_DIR);
+    $dir = tempnam(Main\app_path(), RC_DIR);
     unlink($dir);
     mkdir($dir);
     Main\Set(Main\ALTERNATE_RC_DIR, $dir);

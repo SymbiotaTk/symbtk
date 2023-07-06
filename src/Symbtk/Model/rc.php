@@ -69,7 +69,7 @@ function File(Int $check=1) {
     $rc = Model\Rc\name();
     $dir = (Main\rc_directory_alt())
         ? Main\rc_directory_alt()
-        : Main\cwd();
+        : Main\app_path();
 
     $file = $dir.File\ds().$rc;
     return ($check && $check == 1
@@ -128,7 +128,7 @@ function dirname() {
 function dirpath() {
     $dir = (Main\rc_directory_alt())
         ? Main\rc_directory_alt()
-        : Main\cwd();
+        : Main\app_path();
     return File\mkpath($dir, dirname());
 }
 

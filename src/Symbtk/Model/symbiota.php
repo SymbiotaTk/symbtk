@@ -7,6 +7,15 @@ namespace Symbiotatk\Symbtk\Model\Symbiota;
 use \Symbiotatk\Symbtk\Env AS Env;
 use \Symbiotatk\Symbtk\Env\Model\Http AS Http;
 
+function Run (String $callback) {
+    $def = (object) isInstance();
+    return ($def->error
+        || false
+    )
+    ? (array) $def
+    : $callback($def);
+}
+
 /**
  * Is this a valid Symbiota portal.
  * @return Object $attributes userCollectionData|$attribute->error=true

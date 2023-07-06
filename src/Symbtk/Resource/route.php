@@ -26,7 +26,9 @@ function Parse(Object $obj) {
             'template_vars' => $obj->template_vars
         ]
         : (object) [
-            'rc' => ((array) $obj->rc)[Main\APP_DEFAULT_ROUTE],
+            'rc' => (isset(((array) $obj->rc)[Main\APP_DEFAULT_ROUTE]))
+            ? ((array) $obj->rc)[Main\APP_DEFAULT_ROUTE]
+            : false,
             'resource' => false,
             'route' => false,
             'template_vars' => $obj->template_vars

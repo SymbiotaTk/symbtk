@@ -1,8 +1,37 @@
 <?php
-namespace Symbiotatk\Symbtk\Addon\Backup;
+namespace Symbiotatk\Symbtk\Addon\Upload;
 
 use Symbiotatk\Symbtk\Env AS Env;
 use Symbiotatk\Symbtk\Model\Symbiota AS Symbiota;
+
+/**
+ * This program has three options:
+ *   1) FORM-SELECT: query_labels_ids
+ *       - defined by QUERY
+ *       - select available collection
+ *   2) UPLOAD: query_by_id
+ *       - defined by QUERY
+ *   3) LOG: query_by_id
+ *       - defined by QUERY
+ *
+ * Output:
+ *   Formatted by Javascript
+ *     1) FORM-SELECT: listener
+ *     2) TABLE: upload_form
+ *     3) TABLE: report
+ *
+ * Method:
+ *   GET /              query_labels_ids    @return html
+ *   GET :json          query_labels_ids    @return json
+ *   GET /<id>          query_by_id         @return html  UPLOAD
+ *   GET /<id>:json     query_by_id         @return json  LOG
+ *
+ *   POST /             query_labels_ids    @return json
+ *   POST /{ id: <id> } query_by_id         @return json  LOG
+ *   POST /{ id: <id>, formdata: ... } query_by_id         @return json  UPLOAD
+ *
+ */
+
 
 function AuthEnabled(Object $symb) {
     return false;

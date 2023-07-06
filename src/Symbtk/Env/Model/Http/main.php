@@ -2,9 +2,11 @@
 namespace Symbiotatk\Symbtk\Env\Model\Http;
 
 use Symbiotatk\Symbtk\Env AS Env;
+use Symbiotatk\Symbtk\File AS File;
 
 include_once(dirname(__FILE__).'/auth.php');
 include_once(dirname(__FILE__).'/parse.php');
+include_once(dirname(__FILE__).'/request.php');
 
 /**
  * HTTP attributes
@@ -241,6 +243,25 @@ function QueryString() {
     return (isset($_SERVER['QUERY_STRING']))
         ? $_SERVER['QUERY_STRING']
         : false;
+}
+
+/** Request meta-data object
+ *  @return Object $def
+ */
+function Request() {
+    $env = Attributes();
+    return [
+        'http' => $env,
+        'elements' => Env\Param('elements'),
+        'method' => Method(),
+        'modifier' => Env\Param('modifier'),
+        'resource' => Env\Param('resource'),
+        'resource_url' => implode(File\ds(), [
+            $env->offset.$env->query_delim,
+            $env->resource
+        ]),
+        'url' => $env->relative
+    ];
 }
 
 /**

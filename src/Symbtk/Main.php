@@ -16,11 +16,13 @@ include_once(dirname(__FILE__).'/View/main.php');
 
 const APP_ID = 'SYMBTK';
 const APP_LOG = 'symbtk.log';
-const ALTERNATE_RC_DIR = 'SYMBTK_ALTERNATE_RC_DIR';
-const CACHE_RC_FILE = 'SYMBTK_CACHE_RC_FILE';
-const CUSTOM_LOG = 'SYMBTK_CUSTOM_LOG';
+const APP_SRC_PATH = __DIR__;
+const APP_PATH_ID = APP_ID.'_PATH';
+const ALTERNATE_RC_DIR = APP_ID.'_ALTERNATE_RC_DIR';
+const CACHE_RC_FILE = APP_ID.'_CACHE_RC_FILE';
+const CUSTOM_LOG = APP_ID.'_CUSTOM_LOG';
+const APP_ERROR_MESSAGE = APP_ID.'_ERROR_MESSAGE';
 const APP_DEFAULT_ROUTE = '/';
-const APP_ERROR_MESSAGE = 'SYMBTK_ERROR_MESSAGE';
 const APP_HTML_CONTAINER_ID = 'symbtk';
 const APP_HTML_CONTENT_CONTAINER_ID = 'content';
 
@@ -48,6 +50,17 @@ function Get(String $name) {
         : false;
 }
 
+/** Main run process
+ *  @param String $path
+ *  @return String $content  ViewModel object content attribute
+ */
+function Run (String $path=NULL) {
+    if ($path) { Set(APP_PATH_ID, $path); }
+
+    $obj = View\Render();
+    return $obj->content;
+}
+
 /** Set application global variable
  * @param String $name
  * @param Mixed $value
@@ -73,11 +86,18 @@ function app_namespace() {
     return __NAMESPACE__;
 }
 
-/** Application current directory
+/** Application directory path
  * @return String $path
  */
-function cwd() {
-    return getcwd();
+function app_path() {
+    return Get(APP_PATH_ID);
+}
+
+/** Application source library directory path
+ * @return String $path
+ */
+function app_lib_path() {
+    return dirname(__FILE__);
 }
 
 /** Alternate rc directory; Mainly for testing
@@ -132,17 +152,5 @@ if (!function_exists('str_contains')) {
      */
     function str_contains($haystack, $needle) {
         return $needle !== '' && mb_strpos($haystack, $needle) !== false;
-    }
-}
-
-/** Main
- */
-class Main {
-    /** Main process
-     *  @return String $content  ViewModel object content attribute
-     */
-    static public function Run () {
-        $obj = View\Render();
-        return $obj->content;
     }
 }

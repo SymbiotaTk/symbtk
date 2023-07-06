@@ -143,7 +143,7 @@ function log(String $msg) {
  */
 function paths() {
     $obj = DefPaths();
-    $obj->root = Main\cwd();
+    $obj->root = Main\app_path();
     $obj->root_url = (Param('offset') === '')
         ? PATH_DELIMITER
         : Param('offset').PATH_DELIMITER;

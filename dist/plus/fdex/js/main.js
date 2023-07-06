@@ -21,6 +21,10 @@ App.Fdex = function () {
         return 'select_collection';
     };
 
+    let fetch_timeout = async function () {
+        return 1000;
+    };
+
     let form_id = function () {
         return 'fdex-form';
     };
@@ -347,7 +351,43 @@ App.Fdex = function () {
         return false;
     };
 
-    let action_find_record = function (e) {
+    let spinningpixels = function() {
+        return `
+    <div class="cell">
+<div class="card">
+  <span class="spinning-pixels-loader">Fetching data&#8230;</span>
+  <h3 style="padding-top: 80px;">Fetching data ... <span class='seconds-counter'></span></h3>
+</div>
+    </div>
+        `;
+    }
+
+    let action_hourglass = async function (e) {
+        action_clear_result();
+        let res = document.getElementById(result_id());
+        let hourglass = action_hourglass_container(spinningpixels());
+        res.appendChild(hourglass);
+
+        let tout = await fetch_timeout();
+        await new Promise(r => setTimeout(r, tout));
+        return false;
+    };
+
+    let action_hourglass_container = function(content) {
+        let div = document.createElement('div');
+        div.className = 'spinner';
+        div.appendChild(action_hourglass_grid(content));
+        return div;
+    }
+
+    let action_hourglass_grid = function(content) {
+        let div = document.createElement('div');
+        div.className = 'grid';
+        div.insertAdjacentHTML('afterbegin', content);
+        return div;
+    }
+
+    let action_find_record = async function (e) {
         e.preventDefault();
         let info = App.Http.Info();
         let url = info.resource_url;
@@ -356,7 +396,7 @@ App.Fdex = function () {
         let collid = document.getElementById(select_id()).value;
 
         if (! collid) { return false; }
-        action_clear_result();
+        await action_hourglass();
 
         if (collid && collid != -1) {
             let m = getById(collid);

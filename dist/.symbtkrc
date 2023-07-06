@@ -4,12 +4,12 @@ vars: &required
     css:
       https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
       https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic
-      %{app_url}/dist/css/beauter.min.css
-      %{app_url}/dist/css/main.css?version=%{uuid}
-      %{app_url}/dist/css/navigation.css?version=%{uuid}
+      %{app_url}/css/beauter.min.css
+      %{app_url}/css/main.css?version=%{uuid}
+      %{app_url}/css/navigation.css?version=%{uuid}
     js:
-      %{app_url}/dist/js/beauter.min.js
-      %{app_url}/dist/js/build.min.js?version=%{uuid}
+      %{app_url}/js/beauter.min.js
+      %{app_url}/js/build.min.js?version=%{uuid}
 
 vars|1: &head
   <ul>:
@@ -66,7 +66,7 @@ vars|2: &foot
     callback: default
     required:
       js:
-        %{app_url}/dist/js/loader.js?version=%{uuid}
+        %{app_url}/js/loader.js?version=%{uuid}
   <<: *head
   <div|2>:
     <h1>: ''
@@ -134,7 +134,7 @@ vars|2: &foot
     required:
       js:
         %{resource_url}/js/main.js?version=%{uuid}
-        %{app_url}/dist/js/loader.js?version=%{uuid}
+        %{app_url}/js/loader.js?version=%{uuid}
   <<: *head
   <div|2>:
     class: resource
@@ -153,7 +153,7 @@ vars|2: &foot
     required:
       js:
         %{resource_url}/js/main.js?version=%{uuid}
-        %{app_url}/dist/js/loader.js?version=%{uuid}
+        %{app_url}/js/loader.js?version=%{uuid}
   <<: *head
   <div|2>:
     class: resource
@@ -172,7 +172,7 @@ vars|2: &foot
     required:
       js:
         %{resource_url}/js/main.js?version=%{uuid}
-        %{app_url}/dist/js/loader.js?version=%{uuid}
+        %{app_url}/js/loader.js?version=%{uuid}
   <<: *head
   <div|2>:
     class: resource
@@ -191,7 +191,7 @@ vars|2: &foot
     required:
       js:
         %{resource_url}/js/main.js?version=%{uuid}
-        %{app_url}/dist/js/loader.js?version=%{uuid}
+        %{app_url}/js/loader.js?version=%{uuid}
   <<: *head
   <div|2>:
     class: resource
@@ -210,7 +210,7 @@ vars|2: &foot
     required:
       js:
         %{resource_url}/js/main.js?version=%{uuid}
-        %{app_url}/dist/js/loader.js?version=%{uuid}
+        %{app_url}/js/loader.js?version=%{uuid}
   <<: *head
   <div|2>:
     class: resource
@@ -230,7 +230,7 @@ vars|2: &foot
     required:
       js:
         %{resource_url}/js/main.js?version=%{uuid}
-        %{app_url}/dist/js/loader.js?version=%{uuid}
+        %{app_url}/js/loader.js?version=%{uuid}
   <<: *head
   <div|2>:
     id: content
@@ -248,7 +248,7 @@ vars|2: &foot
     required:
       js:
         %{resource_url}/js/main.js?version=%{uuid}
-        %{app_url}/dist/js/loader.js?version=%{uuid}
+        %{app_url}/js/loader.js?version=%{uuid}
   <<: *head
   <div|2>:
     id: content
@@ -265,7 +265,7 @@ vars|2: &foot
     required:
       js:
         %{resource_url}/js/main.js?version=%{uuid}
-        %{app_url}/dist/js/loader.js?version=%{uuid}
+        %{app_url}/js/loader.js?version=%{uuid}
   <<: *head
   <div|2>:
     id: content
