@@ -504,7 +504,8 @@ App.Fdex = function () {
 
     let portal_instance_url = function (id) {
         let info = App.Http.Info();
-        return '/portal/collections/cleaning/taxonomycleaner.php?collid='+id;
+	let parent_url = info.offset_parent;
+        return parent_url + 'collections/cleaning/taxonomycleaner.php?collid='+id;
     };
 
     let action_download_file = function (e) {

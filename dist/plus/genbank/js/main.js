@@ -68,7 +68,8 @@ App.Genbank = function () {
     let portal_instance_url = function (id) {
         /* https://www.mycoportal.org/portal/collections/individual/index.php?occid=20&clid=0 */
         let info = App.Http.Info();
-        return '/portal/collections/individual/index.php?occid='+id;
+	let parent_url = info.offset_parent;
+        return parent_url + 'collections/individual/index.php?occid='+id;
     };
 
     let instructions = function (e) {
@@ -484,7 +485,7 @@ App.Genbank = function () {
         let res = document.getElementById(id);
 
         let rows = res.getElementsByTagName('tr');
-        let tsv = tableToTsv(rows);
+        let tsv = unescapeHtml(tableToTsv(rows));
 
         downloadFile(fn, tsv, type);
 
@@ -537,6 +538,14 @@ App.Genbank = function () {
 	    /* We will use this function later to download
 	        the data in a csv file downloadCSVFile(csv_data);
 	    */
+    };
+
+    let unescapeHtml = function (html) {
+        var el = document.createElement('div');
+        return html.replace(/\&[#0-9a-z]+;/gi, function (enc) {
+            el.innerHTML = enc;
+            return el.innerText
+        });
     };
 
     let downloadFileTsv = function (id) {

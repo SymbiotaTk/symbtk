@@ -133,6 +133,7 @@ function Paths(String $str=NULL) {
     $def = (object) [
         'app_directory' => Env\Path('root'),
         'app_url' => Env\Param('offset'),
+        'app_parent_url' => dirname(Env\Param('offset')),
         'app_query_delim' => Env\Param('query_delim'),
         'modifier' => Env\Param('modifier'),
         'resource' => Env\Param('resource'),

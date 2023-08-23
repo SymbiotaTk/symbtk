@@ -43,7 +43,7 @@ vars|1: &head
       class: right
       style: float:right;
       <a>:
-        href: /portal
+        href: %{app_parent_url}
         text: Return to MyCoPortal
     <li|4>:
       class: -icon

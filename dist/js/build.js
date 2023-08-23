@@ -271,6 +271,19 @@ App.Http = function () {
         return domain;
     }
 
+    let parentPath = function (url) {
+        let sl = '/';
+        let ts = url.replace(/\/$/, "");
+        let arr = ts.split(sl);
+        arr.pop();
+        let purl = (arr.join(sl) == "")
+            ? sl
+            : arr.join(sl);
+        return (url.length == ts.length)
+            ? purl
+            : (purl == sl) ? purl : purl + sl
+    }
+
     let page_info = function () {
         let info = {
             url: get_href(),
@@ -291,6 +304,7 @@ App.Http = function () {
         info.query_delim = '?/';
         info.resource = plugin.split('/')[1];
         info.resource_url = info.offset + info.query_delim + info.resource;
+	info.offset_parent = parentPath(info.offset);
         info.append = function(str) { return endpoint + str; };
         info.append_subdir = function(str) {
             let e = (endpoint.substr(-1) === '/')

@@ -27,8 +27,8 @@ function isInstance () {
         'message' => false,
         'base' => $portal_dir,
         'symbini' => symbini(),
-        'parent_url' => '/portal',
-        'parent_text' => 'Return to MyCoPortal',
+        'parent_url' => dirname(Env\param('offset')),
+        'parent_text' => 'Return to portal',
         'conn' => mysqlInfo(),
         'config_dir_exists' => is_dir($portal_dir.'/config'),
         'class_dir_exists' => is_dir($portal_dir.'/classes')
@@ -50,12 +50,40 @@ function isInstance () {
 function userCollectionsData(Object $env) {
     $env->error = false;
     $env->collections = setCollectionList($env);
-    $env->user = getUserProfile($env);
+    $env->user = userObjectFormat(getUserProfile($env));
     if (! $env->user) {
         $env->error = true;
         $env->message = 'Please return to the portal and login.';
     }
     return $env;
+}
+
+/**
+ * Format current user attributes.
+ * @param Mixed $obj
+ * @return Object $fobj|false
+ */
+function userObjectFormat ($obj=NULL) {
+    if (! $obj) { return false; }
+    $fobj = (object) [];
+    $fobj->uid = $obj->getUid();
+    $fobj->username = $obj->getUserName();
+    $fobj->firstname = $obj->getFirstName();
+    $fobj->lastname = $obj->getLastName();
+    $fobj->title = $obj->getTitle();
+    $fobj->institution = $obj->getInstitution();
+    // $fobj->department = $obj->getDepartment();
+    $fobj->city = $obj->getCity();
+    $fobj->state = $obj->getState();
+    $fobj->country = $obj->getCountry();
+    $fobj->zip = $obj->getZip();
+    // $fobj->phone = $obj->getPhone();
+    $fobj->email = $obj->getEmail();
+    // $fobj->guid = $obj->getGUID();
+    $fobj->lastlogindate = $obj->getLastLoginDate();
+    $fobj->usertaxonomy = $obj->getUserTaxonomy();
+
+    return $fobj;
 }
 
 /**
@@ -67,6 +95,15 @@ function getUserProfile(Object $env) {
     global $SYMB_UID;
     $SYMB_UID = (property_exists($env->symbini, 'SYMB_UID')) ? $env->symbini->SYMB_UID : null;
 
+    if ($SYMB_UID) {
+        symb_classes();
+        $pm = new \ProfileManager();
+        $pm->setUid($SYMB_UID);
+        return $pm->getPerson();
+    }
+    return false;
+    
+/*
     $sqlStr =<<<EndOfString
         SELECT
             u.uid, u.firstname, u.lastname, u.title,
@@ -82,6 +119,7 @@ EndOfString;
     $result = $env->conn->query($sqlStr);
 
     return ($result) ? $result->fetch_object() : false;
+*/
 }
 
 /**
@@ -90,17 +128,18 @@ EndOfString;
  * @return Object $colllist|false
  */
 function setCollectionList(Object $env) {
-    global $USER_RIGHTS, $IS_ADMIN, $SYMB_UID, $LANG_TAG, $CHARSET, $TEMP_DIR_ROOT, $CLIENT_ROOT, $DEFAULT_TITLE, $ADMIN_EMAIL;
+    global $ADMIN_EMAIL, $CHARSET, $CLIENT_ROOT, $DEFAULT_TITLE, $IS_ADMIN, $LANG_TAG, $SERVER_ROOT, $SYMB_UID, $TEMP_DIR_ROOT, $USER_RIGHTS; 
 
-    $USER_RIGHTS = (property_exists($env->symbini, 'USER_RIGHTS')) ? $env->symbini->USER_RIGHTS : null;
-    $IS_ADMIN = (property_exists($env->symbini, 'IS_ADMIN')) ? $env->symbini->IS_ADMIN : null;
-    $SYMB_UID = (property_exists($env->symbini, 'SYMB_UID')) ? $env->symbini->SYMB_UID : null;
-    $LANG_TAG = (property_exists($env->symbini, 'LANG_TAG')) ? $env->symbini->LANG_TAG : null;
+    $ADMIN_EMAIL = (property_exists($env->symbini, 'ADMIN_EMAIL')) ? $env->symbini->ADMIN_EMAIL : null;
     $CHARSET = (property_exists($env->symbini, 'CHARSET')) ? $env->symbini->CHARSET : null;
-    $TEMP_DIR_ROOT = (property_exists($env->symbini, 'TEMP_DIR_ROOT')) ? $env->symbini->TEMP_DIR_ROOT : null;
     $CLIENT_ROOT = (property_exists($env->symbini, 'CLIENT_ROOT')) ? $env->symbini->CLIENT_ROOT : null;
     $DEFAULT_TITLE = (property_exists($env->symbini, 'DEFAULT_TITLE')) ? $env->symbini->DEFAULT_TITLE : null;
-    $ADMIN_EMAIL = (property_exists($env->symbini, 'ADMIN_EMAIL')) ? $env->symbini->ADMIN_EMAIL : null;
+    $IS_ADMIN = (property_exists($env->symbini, 'IS_ADMIN')) ? $env->symbini->IS_ADMIN : null;
+    $LANG_TAG = (property_exists($env->symbini, 'LANG_TAG')) ? $env->symbini->LANG_TAG : null;
+    $SERVER_ROOT = (property_exists($env->symbini, 'SERVER_ROOT')) ? $env->symbini->SERVER_ROOT : null;
+    $SYMB_UID = (property_exists($env->symbini, 'SYMB_UID')) ? $env->symbini->SYMB_UID : null;
+    $TEMP_DIR_ROOT = (property_exists($env->symbini, 'TEMP_DIR_ROOT')) ? $env->symbini->TEMP_DIR_ROOT : null;
+    $USER_RIGHTS = (property_exists($env->symbini, 'USER_RIGHTS')) ? $env->symbini->USER_RIGHTS : null;
 
     symb_classes();
     $smManager = new \SiteMapManager();
@@ -152,7 +191,7 @@ function mysqlInfo () {
 }
 
 /**
- * Load require Symbiota classes (SiteMapManager,DwcArchiverCore)
+ * Load require Symbiota classes (DwcArchiverCore,ProfileManager,SiteMapManager)
  * @return Bool
  */
 function symb_classes () {
@@ -160,8 +199,9 @@ function symb_classes () {
 
     $success = false;
     $libs = [
-        'SiteMapManager',
-        'DwcArchiverCore'
+        'DwcArchiverCore',
+        'ProfileManager',
+        'SiteMapManager'
     ];
     $portal_dir = portal_dir();
     foreach($libs as $lib) {
