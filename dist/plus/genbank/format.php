@@ -14,7 +14,13 @@ function country(Object $obj) {
     $arr = array_merge(
         array_map(
 	    function ($i) { return trim($i, ' ,'); },
-            array_filter($arr, function ($i) { return (trim($i) === '' || is_null($i)) ? false : true; })
+            array_filter($arr, function ($i) { 
+                return (is_null($i)) 
+                    ? false 
+                    : ((trim($i) === '')
+                        ? false
+                        : true); 
+            })
 	)
     );
     $str = implode(", ", $arr);
