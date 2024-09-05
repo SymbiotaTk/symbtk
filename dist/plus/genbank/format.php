@@ -8,24 +8,26 @@ function country(Object $obj) {
 
     $arr = [
 	$obj->stateProvince,
+	$obj->county,
 	$obj->municipality,
 	$obj->locality
     ];
     $arr = array_merge(
         array_map(
 	    function ($i) { return trim($i, ' ,'); },
-            array_filter($arr, function ($i) { 
-                return (is_null($i)) 
-                    ? false 
+            array_filter($arr, function ($i) {
+                return (is_null($i))
+                    ? false
                     : ((trim($i) === '')
                         ? false
-                        : true); 
+                        : true);
             })
 	)
     );
     $str = implode(", ", $arr);
 
     unset($obj->stateProvince);
+    unset($obj->county);
     unset($obj->municipality);
     unset($obj->locality);
 
